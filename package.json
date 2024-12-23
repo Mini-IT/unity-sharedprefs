@@ -1,0 +1,20 @@
+{
+  "name": "com.miniit.sharedprefs",
+  "version": "1.0.0",
+  "dependencies": {
+    "com.miniit.web.cookies": "1.1.0"
+  },
+  "unity": "2022.3",
+  "author": {
+    "name": "Mini IT",
+    "url": "http://mini-it.com"
+  },
+  "keywords": [
+    "MiniIT",
+    "SharedPreferences",
+    "PlayerPrefs",
+    "Coockies"
+  ],
+  "displayName": "Mini IT - Shared Preferences",
+  "description": "Mini IT - Shared Preferences"
+}
