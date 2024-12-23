@@ -1,12 +1,12 @@
-# Unity SharedPreferences
+# Unity Shared Preferences
 
 Helper class that uses cookies in WebGL builds and [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) on other platforms.
 
 ## Motivation
 
-Although Unity WebGL applications do support `PlayerPrefs` its storage is hardly bound to a certian build.
-This means that the data you store there becomes inaccessible as soon as you update your application.
-That is why we should use cookies instead of `PlayerPrefs`.
+Although Unity WebGL applications support `PlayerPrefs`, the storage is tightly bound to a specific build.
+This means that the data stored there becomes inaccessible once you update your application.
+That is why you should use cookies instead of `PlayerPrefs` to store persistent data.
 
 ## Dependencies
 
