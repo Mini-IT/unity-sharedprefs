@@ -1,28 +1,26 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
 
-using System.Collections.Generic;
-
 namespace MiniIT.Storage.Unity
 {
-	internal class WebGLSharedPrefs : ISharedPrefs
+	public class WebLocalStorageSharedPrefs : ISharedPrefs
 	{
+		private const string PREFIX = "MiniIT/Prefs/";
+
 		public void DeleteAll()
 		{
-			Dictionary<string, string> all = HttpCookie.GetAllCookies();
-			foreach (var pair in all)
-			{
-				HttpCookie.RemoveCookie(pair.Key);
-			}
+			WebLocalStorage.DeleteByPrefix(PREFIX);
 		}
 
 		public void DeleteKey(string key)
 		{
-			HttpCookie.RemoveCookie(key);
+			key = GetKey(key);
+			WebLocalStorage.DeleteByPrefix(key);
 		}
 
 		public bool GetBool(string key, bool defaultValue = default)
 		{
-			string value = HttpCookie.GetCookie(key);
+			key = GetKey(key);
+			string value = WebLocalStorage.Read(key);
 			if (int.TryParse(value, out int val))
 			{
 				return (val != 0);
@@ -32,7 +30,8 @@ namespace MiniIT.Storage.Unity
 
 		public float GetFloat(string key, float defaultValue = default)
 		{
-			string value = HttpCookie.GetCookie(key);
+			key = GetKey(key);
+			string value = WebLocalStorage.Read(key);
 			if (float.TryParse(value, out float val))
 			{
 				return val;
@@ -42,7 +41,8 @@ namespace MiniIT.Storage.Unity
 
 		public int GetInt(string key, int defaultValue = default)
 		{
-			string value = HttpCookie.GetCookie(key);
+			key = GetKey(key);
+			string value = WebLocalStorage.Read(key);
 			if (int.TryParse(value, out int val))
 			{
 				return val;
@@ -52,7 +52,8 @@ namespace MiniIT.Storage.Unity
 
 		public string GetString(string key, string defaultValue = default)
 		{
-			string value = HttpCookie.GetCookie(key);
+			key = GetKey(key);
+			string value = WebLocalStorage.Read(key);
 			if (string.IsNullOrEmpty(value))
 			{
 				return defaultValue;
@@ -62,12 +63,12 @@ namespace MiniIT.Storage.Unity
 
 		public bool HasKey(string key)
 		{
-			Dictionary<string, string> all = HttpCookie.GetAllCookies();
-			return all.ContainsKey(key);
+			return WebLocalStorage.HasKey(key);
 		}
 
 		public void Save()
 		{
+			// Do nothing
 		}
 
 		public void SetBool(string key, bool value)
@@ -77,17 +78,22 @@ namespace MiniIT.Storage.Unity
 
 		public void SetFloat(string key, float value)
 		{
-			HttpCookie.SetCookie(key, value.ToString());
+			WebLocalStorage.Write(key, value.ToString());
 		}
 
 		public void SetInt(string key, int value)
 		{
-			HttpCookie.SetCookie(key, value.ToString());
+			WebLocalStorage.Write(key, value.ToString());
 		}
 
 		public void SetString(string key, string value)
 		{
-			HttpCookie.SetCookie(key, value);
+			WebLocalStorage.Write(key, value);
+		}
+
+		private string GetKey(string key)
+		{
+			return string.Concat(PREFIX, key);
 		}
 	}
 }

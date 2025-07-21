@@ -8,12 +8,16 @@ namespace MiniIT.Storage
 
 		private static ISharedPrefs s_instance;
 
-		private static ISharedPrefs CreateSharedPrefs() =>
+		private static ISharedPrefs CreateSharedPrefs()
+		{
 #if UNITY_WEBGL && !UNITY_EDITOR
-			new WebGLSharedPrefs();
+			var prefs = new WebLocalStorageSharedPrefs();
+			Migrations.MigrationCookiesToLocalStorage.Run(prefs);
+			return prefs;
 #else
-			new UnitySharedPrefs();
+			return new UnitySharedPrefs();
 #endif
+		}
 
 		#region Static ISharedPrefs
 
