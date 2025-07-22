@@ -1,10 +1,13 @@
 #if UNITY_WEBGL && !UNITY_EDITOR
 
+using System.Globalization;
+using System.Runtime.CompilerServices;
+
 namespace MiniIT.Storage.Unity
 {
 	public class WebLocalStorageSharedPrefs : ISharedPrefs
 	{
-		private const string PREFIX = "MiniIT/Prefs/";
+		private const string PREFIX = "miniit.prefs-";
 
 		public void DeleteAll()
 		{
@@ -17,7 +20,7 @@ namespace MiniIT.Storage.Unity
 			WebLocalStorage.DeleteByPrefix(key);
 		}
 
-		public bool GetBool(string key, bool defaultValue = default)
+		public bool GetBool(string key, bool defaultValue = false)
 		{
 			key = GetKey(key);
 			string value = WebLocalStorage.Read(key);
@@ -28,7 +31,7 @@ namespace MiniIT.Storage.Unity
 			return defaultValue;
 		}
 
-		public float GetFloat(string key, float defaultValue = default)
+		public float GetFloat(string key, float defaultValue = 0f)
 		{
 			key = GetKey(key);
 			string value = WebLocalStorage.Read(key);
@@ -39,7 +42,7 @@ namespace MiniIT.Storage.Unity
 			return defaultValue;
 		}
 
-		public int GetInt(string key, int defaultValue = default)
+		public int GetInt(string key, int defaultValue = 0)
 		{
 			key = GetKey(key);
 			string value = WebLocalStorage.Read(key);
@@ -50,7 +53,7 @@ namespace MiniIT.Storage.Unity
 			return defaultValue;
 		}
 
-		public string GetString(string key, string defaultValue = default)
+		public string GetString(string key, string defaultValue = null)
 		{
 			key = GetKey(key);
 			string value = WebLocalStorage.Read(key);
@@ -63,6 +66,7 @@ namespace MiniIT.Storage.Unity
 
 		public bool HasKey(string key)
 		{
+			key = GetKey(key);
 			return WebLocalStorage.HasKey(key);
 		}
 
@@ -78,19 +82,23 @@ namespace MiniIT.Storage.Unity
 
 		public void SetFloat(string key, float value)
 		{
-			WebLocalStorage.Write(key, value.ToString());
+			key = GetKey(key);
+			WebLocalStorage.Write(key, value.ToString(CultureInfo.InvariantCulture));
 		}
 
 		public void SetInt(string key, int value)
 		{
-			WebLocalStorage.Write(key, value.ToString());
+			key = GetKey(key);
+			WebLocalStorage.Write(key, value.ToString(CultureInfo.InvariantCulture));
 		}
 
 		public void SetString(string key, string value)
 		{
+			key = GetKey(key);
 			WebLocalStorage.Write(key, value);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private string GetKey(string key)
 		{
 			return string.Concat(PREFIX, key);
