@@ -19,14 +19,14 @@
     var buffer = _malloc(bufferSize);
     stringToUTF8(value, buffer, bufferSize);
     return buffer;
-  }
+  },
 
   LocalStorageHasKey: function (keyPtr)
   {
       var key = UTF8ToString(keyPtr);
       var value = localStorage.getItem(key);
       return (value === null) ? 0 : 1;
-    }
+  },
 
   LocalStorageGetAllKeysWithPrefix: function(prefixPtr)
   {
@@ -45,16 +45,16 @@
       const buffer = _malloc(size);
       stringToUTF8(json, buffer, size);
       return buffer;
-    }
+  },
 
-   LocalStorageDelete: function (keyPtr)
-   {
+  LocalStorageDelete: function (keyPtr)
+  {
      var key = UTF8ToString(keyPtr);
      localStorage.removeItem(key);
-   },
+  },
 
-   LocalStorageDeleteByPrefix: function (prefixPtr)
-   {
+  LocalStorageDeleteByPrefix: function (prefixPtr)
+  {
      var prefix = UTF8ToString(prefixPtr);
      var toDelete = [];
      for (var i = 0; i < localStorage.length; i++) {
@@ -66,5 +66,5 @@
      for (var j = 0; j < toDelete.length; j++) {
        localStorage.removeItem(toDelete[j]);
      }
-   }
+  }
 });
