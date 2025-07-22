@@ -11,9 +11,7 @@ namespace MiniIT.Storage
 		private static ISharedPrefs CreateSharedPrefs()
 		{
 #if UNITY_WEBGL && !UNITY_EDITOR
-			var prefs = new WebLocalStorageSharedPrefs();
-			Migrations.MigrationCookiesToLocalStorage.Run(prefs);
-			return prefs;
+			return new WebLocalStorageSharedPrefs();
 #else
 			return new UnitySharedPrefs();
 #endif
@@ -31,22 +29,22 @@ namespace MiniIT.Storage
 			Instance.DeleteKey(key);
 		}
 
-		public static bool GetBool(string key, bool defaultValue = default)
+		public static bool GetBool(string key, bool defaultValue = false)
 		{
 			return Instance.GetInt(key, defaultValue ? 1 : 0) != 0;
 		}
 
-		public static float GetFloat(string key, float defaultValue = default)
+		public static float GetFloat(string key, float defaultValue = 0)
 		{
 			return Instance.GetFloat(key, defaultValue);
 		}
 
-		public static int GetInt(string key, int defaultValue = default)
+		public static int GetInt(string key, int defaultValue = 0)
 		{
 			return Instance.GetInt(key, defaultValue);
 		}
 
-		public static string GetString(string key, string defaultValue = default)
+		public static string GetString(string key, string defaultValue = null)
 		{
 			return Instance.GetString(key, defaultValue);
 		}
