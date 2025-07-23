@@ -2,6 +2,7 @@
     "name": "MiniIT.Storage.SharedPrefs",
     "rootNamespace": "MiniIT.Storage",
     "references": [
+        "MiniIT.Storage.Web.LocalStorage",
         "MiniIT.Storage.Web.Cookies"
     ],
     "includePlatforms": [],
@@ -11,6 +12,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.miniit.web.cookies",
+            "expression": "1.1.0",
+            "define": "MINIIT_COOKIES"
+        }
+    ],
     "noEngineReferences": false
 }
