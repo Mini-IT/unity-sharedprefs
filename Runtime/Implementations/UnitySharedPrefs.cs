@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MiniIT.Storage.Unity
 {
-	internal class UnitySharedPrefs : ISharedPrefs
+	internal sealed class UnitySharedPrefs : ISharedPrefs
 	{
 		public void DeleteAll()
 		{
@@ -14,22 +14,22 @@ namespace MiniIT.Storage.Unity
 			PlayerPrefs.DeleteKey(key);
 		}
 
-		public bool GetBool(string key, bool defaultValue = default)
+		public bool GetBool(string key, bool defaultValue = false)
 		{
 			return PlayerPrefs.GetInt(key, defaultValue ? 1 : 0) != 0;
 		}
 
-		public float GetFloat(string key, float defaultValue = default)
+		public float GetFloat(string key, float defaultValue = 0)
 		{
 			return PlayerPrefs.GetFloat(key, defaultValue);
 		}
 
-		public int GetInt(string key, int defaultValue = default)
+		public int GetInt(string key, int defaultValue = 0)
 		{
 			return PlayerPrefs.GetInt(key, defaultValue);
 		}
 
-		public string GetString(string key, string defaultValue = default)
+		public string GetString(string key, string defaultValue = null)
 		{
 			return PlayerPrefs.GetString(key, defaultValue);
 		}

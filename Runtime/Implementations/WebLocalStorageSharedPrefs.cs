@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace MiniIT.Storage.Unity
 {
-	public class WebLocalStorageSharedPrefs : ISharedPrefs
+	internal sealed class WebLocalStorageSharedPrefs : ISharedPrefs
 	{
 		private const string PREFIX = "miniit.prefs-";
 
