@@ -1,7 +1,7 @@
 
 namespace MiniIT.Storage
 {
-	internal sealed class NullSharedPrefs : ISharedPrefs
+	public sealed class NullSharedPrefs : ISharedPrefs
 	{
 		public bool HasKey(string key) => false;
 		public void DeleteKey(string key) { }
